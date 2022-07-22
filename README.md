@@ -1,1 +1,13 @@
 # rock-paper-scissors
+
+Implementing a basic Rock Paper Scissors game using **Javascript**
+
+## Description
+
+We are going to make a simple implementation of the game `rock paper scissors`;
+check [this wikipedia article](https://en.wikipedia.org/wiki/Rock_paper_scissors) if you don't know what that is .
+
+## Steps 
+
+* **at first**, the game be played from browser console
+* **later**, we will add a Graphical User Interface
