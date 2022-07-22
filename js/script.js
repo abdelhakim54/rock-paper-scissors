@@ -26,3 +26,20 @@ function playRound(playerSelection, computerSelection){
 
     }
 }
+
+function game(){
+    let numberOfwins = 0;
+    for(let i = 0; i < 5; i++){
+        let computerSelection = getComputerChoice();
+        let playerSelection = prompt("enter your choice ('rock', 'paper' ,or 'scissors')");
+        let result = playRound(playerSelection, computerSelection);
+        if (result.includes("Win")) numberOfwins++;
+        else if (result.includes("Lose")) numberOfwins--;
+
+        console.log(result);
+    }
+
+    if(numberOfwins > 0) console.log("Congratulations! You won this game .");
+    else if(numberOfwins < 0) console.log("Unfortunately! You lost this game, Try again!");
+    else console.log("This game ended with a Draw");
+}
