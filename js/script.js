@@ -1,45 +1,80 @@
+let computerScore = 0;
+let playerScore = 0;
+
+
 function getComputerChoice(){
-    const choices = ["rock","paper","scissors"];
+    const choices = ["✊","✋","✌"];
     return(choices[Math.floor(Math.random()*3)]);
 }
 
 function playRound(playerSelection, computerSelection){
-    if(playerSelection.toLowerCase() == "rock"){
 
-        if(computerSelection.toLowerCase() == "scissors") return("You Win! rock beats scissors");
-        else if(computerSelection.toLowerCase() == "paper") return("You Lose! paper beats rock");
-        else if(computerSelection.toLowerCase() == "rock") return("It's a Draw");
-    
+    playerSelection = playerSelection.trim().toLowerCase();
+    computerSelection = computerSelection.trim().toLowerCase();
+
+    if (playerSelection == computerSelection){
+        return("tie");
     }
-    else if(playerSelection.toLowerCase() == "paper"){
 
-        if(computerSelection.toLowerCase() == "rock") return("You Win! paper beats rock");
-        else if(computerSelection.toLowerCase() == "scissors") return("You Lose! scissors beats paper");
-        else if(computerSelection.toLowerCase() == "paper") return("It's a Draw");
-    
-    }
-    else if(playerSelection.toLowerCase() == "scissors"){
-
-        if(computerSelection.toLowerCase() == "paper") return("You Win! scissors beats paper");
-        else if(computerSelection.toLowerCase() == "rock") return("You Lose! rock beats scissors");
-        else if(computerSelection.toLowerCase() == "scissors") return("It's a Draw");
-
+    else if ((playerSelection == "rock" && computerSelection == "scissors") ||
+                (playerSelection == "paper" && computerSelection == "rock") ||
+                (playerSelection == "scissors" && computerSelection == "paper")){
+                    playerScore++;
+                    return("player");
+                }
+    else if ((playerSelection == "rock" && computerSelection == "paper")||
+             (playerSelection == "paper" && computerSelection == "scissors")||
+             (playerSelection == "scissors" && computerSelection == "rock")){
+                computerScore++;
+                return("computer");
     }
 }
 
-function game(){
-    let numberOfwins = 0;
-    for(let i = 0; i < 5; i++){
-        let computerSelection = getComputerChoice();
-        let playerSelection = prompt("enter your choice ('rock', 'paper' ,or 'scissors')");
-        let result = playRound(playerSelection, computerSelection);
-        if (result.includes("Win")) numberOfwins++;
-        else if (result.includes("Lose")) numberOfwins--;
-
-        console.log(result);
-    }
-
-    if(numberOfwins > 0) console.log("Congratulations! You won this game .");
-    else if(numberOfwins < 0) console.log("Unfortunately! You lost this game, Try again!");
-    else console.log("This game ended with a Draw");
+function getPlayerSelection(playerSelection){
+    if (playerSelection == '✊')return "rock";
+    else if (playerSelection == '✋')return "paper";
+    else if (playerSelection == '✌')return "scissors";
 }
+
+function getComputerSelection (computerChoice){
+    if (computerChoice == '✊')return "rock";
+    else if (computerChoice == '✋')return "paper";
+    else if (computerChoice == '✌')return "scissors";
+}
+
+function updateScore (result){
+    if(result == "player"){
+        playerScoreText.textContent = "Player: " + playerScore;
+    }
+    else if(result == "computer"){
+        computerScoreText.textContent = "Computer: " + computerScore;
+    }
+}
+
+function isEndGame(){
+    return(playerScore == 5 || computerScore == 5)
+}
+
+
+const options = document.querySelectorAll(".btn");
+
+const playerChoice = document.querySelector(".player > div");
+const computerChoice = document.querySelector(".computer > div");
+
+const playerScoreText = document.querySelector(".player > p");
+const computerScoreText = document.querySelector(".computer > p");
+
+
+options.forEach( option => {
+    option.addEventListener("click", function handleGame(e){
+        const playerSelection = e.target.textContent;
+        const computerSelection = getComputerChoice();
+
+        playerChoice.textContent = playerSelection;
+        computerChoice.textContent = computerSelection;
+
+        const result = playRound(getPlayerSelection(playerSelection), getComputerSelection(computerSelection));
+        updateScore(result);
+});
+});
+
