@@ -1,7 +1,7 @@
 # rock-paper-scissors
 
-Implementing a basic Rock Paper Scissors game using **Javascript**
-
+Implementing a basic Rock Paper Scissors game using **Javascript** \
+Click [here](https://abdelhakim54.github.io/rock-paper-scissors/) for a live preview
 ## Description
 
 We are going to make a simple implementation of the game `rock paper scissors`;
