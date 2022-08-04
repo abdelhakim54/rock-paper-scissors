@@ -30,24 +30,18 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-function getPlayerSelection(playerSelection){
-    if (playerSelection == '✊')return "rock";
-    else if (playerSelection == '✋')return "paper";
-    else if (playerSelection == '✌')return "scissors";
-}
-
-function getComputerSelection (computerChoice){
-    if (computerChoice == '✊')return "rock";
-    else if (computerChoice == '✋')return "paper";
-    else if (computerChoice == '✌')return "scissors";
+function getSelection(Sign){
+    if (Sign == '✊')return "rock";
+    else if (Sign == '✋')return "paper";
+    else if (Sign == '✌')return "scissors";
 }
 
 function updateScore (result){
     if(result == "player"){
-        playerScoreText.textContent = "Player: " + playerScore;
+        playerScoreText.textContent = `Player: ${playerScore}`;
     }
     else if(result == "computer"){
-        computerScoreText.textContent = "Computer: " + computerScore;
+        computerScoreText.textContent = `Computer: ${computerScore}`;
     }
 }
 
@@ -61,34 +55,56 @@ function isEndGame(){
     return(playerScore == 5 || computerScore == 5)
 }
 
-const body = document.querySelector("body")
+function anounceWinner(){
+    if(isEndGame()){
+        if (playerScore == 5){
+            finalResult.textContent =  "Confratulations! You Won";
+            finalResult.classList.add("win");
+        }
+        else{
+            finalResult.textContent =  "You Lost the game ...";
+            finalResult.classList.add("lost")
+        }
+    }
+}
 
-const options = document.querySelectorAll(".btn");
+const options = Array.from(document.querySelectorAll(".btn"));
 
-const playerChoice = document.querySelector(".player > div");
-const computerChoice = document.querySelector(".computer > div");
+const playerSign = document.querySelector(".player > div");
+const computerSign = document.querySelector(".computer > div");
 
 const playerScoreText = document.querySelector(".player > p");
 const computerScoreText = document.querySelector(".computer > p");
 
 const roundResult = document.querySelector(".round-result");
 
-const finalResult = document.createElement("div");
-
-body.appendChild(finalResult);
+const finalResult = document.querySelector(".final-result");
 
 options.forEach( option => {
-    option.addEventListener("click", function handleGame(e){
-        const playerSelection = e.target.textContent;
-        const computerSelection = getComputerChoice();
+    option.addEventListener("click", function (e){
+        if(isEndGame()){
+            return;
+        }
 
-        playerChoice.textContent = playerSelection;
-        computerChoice.textContent = computerSelection;
-
-        const result = playRound(getPlayerSelection(playerSelection), getComputerSelection(computerSelection));
+        handleGame(e.target.textContent);
         
-        updateRoundResult(result);
+});
+});
 
-        updateScore(result);
-});
-});
+function handleGame(playerWeapon){
+    const playerSelection = playerWeapon;
+    const computerSelection = getComputerChoice();
+
+    playerSign.textContent = playerSelection;
+    computerSign.textContent = computerSelection;
+
+    const result = playRound(getSelection(playerSelection), getSelection(computerSelection));
+    
+    updateScore(result);
+    
+    updateRoundResult(result);
+    anounceWinner();
+
+};
+
+

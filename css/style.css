@@ -76,3 +76,14 @@ div.options {
 }
 
 
+.final-result {
+    font-size: 32px;
+}
+
+.win {
+    color: green;
+}
+
+.lost {
+    color: red ;
+}
