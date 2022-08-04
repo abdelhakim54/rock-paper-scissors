@@ -58,7 +58,7 @@ function isEndGame(){
 function anounceWinner(){
     if(isEndGame()){
         if (playerScore == 5){
-            finalResult.textContent =  "Confratulations! You Won";
+            finalResult.textContent =  "Congratulations! You Won";
             finalResult.classList.add("win");
         }
         else{
