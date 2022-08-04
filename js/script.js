@@ -51,10 +51,17 @@ function updateScore (result){
     }
 }
 
+function updateRoundResult(result){
+    if(result == "tie") roundResult.textContent = "it's a Tie";
+    else if(result == "player") roundResult.textContent = "You Win!";
+    else if(result == "computer") roundResult.textContent = "You Lose!"
+}
+
 function isEndGame(){
     return(playerScore == 5 || computerScore == 5)
 }
 
+const body = document.querySelector("body")
 
 const options = document.querySelectorAll(".btn");
 
@@ -64,6 +71,11 @@ const computerChoice = document.querySelector(".computer > div");
 const playerScoreText = document.querySelector(".player > p");
 const computerScoreText = document.querySelector(".computer > p");
 
+const roundResult = document.querySelector(".round-result");
+
+const finalResult = document.createElement("div");
+
+body.appendChild(finalResult);
 
 options.forEach( option => {
     option.addEventListener("click", function handleGame(e){
@@ -74,7 +86,9 @@ options.forEach( option => {
         computerChoice.textContent = computerSelection;
 
         const result = playRound(getPlayerSelection(playerSelection), getComputerSelection(computerSelection));
+        
+        updateRoundResult(result);
+
         updateScore(result);
 });
 });
-
