@@ -87,3 +87,40 @@ div.options {
 .lost {
     color: red ;
 }
+
+.final-result {
+    position: fixed;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4); 
+    left : 0;
+    top: 0;
+    width: 0;
+    height : 0;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 0.15s ease-out, width 0s linear 0.15s, height 0s linear 0.15s;
+  }
+  
+.final-result.visible {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.15s ease-out;
+}
+
+.pop-up {
+    background-color: white;
+    margin: 0 auto;
+    width: 300px;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.pop-up > *{
+    color: black;
+}

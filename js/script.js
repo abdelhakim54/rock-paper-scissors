@@ -57,15 +57,25 @@ function isEndGame(){
 
 function anounceWinner(){
     if(isEndGame()){
+        openModal();
         if (playerScore == 5){
-            finalResult.textContent =  "Congratulations! You Won";
+            finalResult.textContent = "You Won the Game !! "
             finalResult.classList.add("win");
+            
         }
         else{
             finalResult.textContent =  "You Lost the game ...";
             finalResult.classList.add("lost")
         }
     }
+}
+
+function openModal(){
+    modalRoot.classList.add("visible");
+}
+
+function closeModal(){
+    modalRoot.classList.remove("visible")
 }
 
 const options = Array.from(document.querySelectorAll(".btn"));
@@ -78,16 +88,38 @@ const computerScoreText = document.querySelector(".computer > p");
 
 const roundResult = document.querySelector(".round-result");
 
-const finalResult = document.querySelector(".final-result");
+const modalRoot= document.querySelector(".final-result");
+const modal= document.querySelector(".pop-up");
+const finalResult = document.querySelector(".pop-up p");
+const playAaginButton = document.querySelector(".play-again");
+
+playAaginButton.addEventListener("click", playAgain)
+
+function playAgain(){
+    playerSign.textContent = "?";
+    computerSign.textContent = "?";
+    playerScore = 0;
+    computerScore = 0;
+    playerScoreText.textContent = `Player: ${playerScore}`;;
+    computerScoreText.textContent = `Computer: ${computerScore}`;;
+    roundResult.textContent = "";
+    modalRoot.classList.remove("visible")
+}
+
+modalRoot.addEventListener("click", function(e){
+    if(e.target != this){
+        return;
+    }
+    modalRoot.classList.remove("visible");
+});
 
 options.forEach( option => {
     option.addEventListener("click", function (e){
         if(isEndGame()){
+            openModal();
             return;
         }
-
         handleGame(e.target.textContent);
-        
 });
 });
 
@@ -106,5 +138,3 @@ function handleGame(playerWeapon){
     anounceWinner();
 
 };
-
-
